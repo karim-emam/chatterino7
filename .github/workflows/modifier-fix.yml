@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: SevenTV/chatterino7
-          ref: master
+          ref: chatterino7
           submodules: recursive
           fetch-depth: 0
 
