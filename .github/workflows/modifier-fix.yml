@@ -82,16 +82,18 @@ jobs:
 
       - name: Configure CMake
         working-directory: build
+        shell: pwsh
         run: |
-          cmake `
-            -G Ninja `
-            -DCMAKE_BUILD_TYPE=RelWithDebInfo `
-            -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake `
-            -DUSE_PRECOMPILED_HEADERS=ON `
-            -DBUILD_WITH_CRASHPAD=ON `
-            -DCHATTERINO_LTO=ON `
-            -DFORCE_JSON_GENERATION=Off `
-            -DCHATTERINO_SPELLCHECK=ON `
+          $toolchain = (Resolve-Path "conan_toolchain.cmake").Path
+          Write-Host "Using toolchain: $toolchain"
+          cmake "-GNinja" `
+            "-DCMAKE_BUILD_TYPE=RelWithDebInfo" `
+            "-DCMAKE_TOOLCHAIN_FILE=$toolchain" `
+            "-DUSE_PRECOMPILED_HEADERS=ON" `
+            "-DBUILD_WITH_CRASHPAD=ON" `
+            "-DCHATTERINO_LTO=ON" `
+            "-DFORCE_JSON_GENERATION=Off" `
+            "-DCHATTERINO_SPELLCHECK=ON" `
             ..
 
       - name: Build
