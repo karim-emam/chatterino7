@@ -110,8 +110,9 @@ jobs:
       - name: Deploy Qt
         working-directory: build
         run: |
-          windeployqt bin\chatterino.exe --release --no-compiler-runtime --no-translations
-          powershell -File ..\.CI\deploy-crt.ps1
+          windeployqt bin\chatterino.exe --release --no-compiler-runtime --no-translations --no-opengl-sw --dir Chatterino2\ --force-openssl
+          cp bin\chatterino.exe Chatterino2\
+          powershell -File ..\.CI\deploy-crt.ps1 Chatterino2
 
       - name: Package
         working-directory: build
