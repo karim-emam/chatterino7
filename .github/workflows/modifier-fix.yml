@@ -36,16 +36,13 @@ jobs:
           Set-Content $file $content -NoNewline
           Write-Host "Modifier fix applied successfully"
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v4.3.1
-        with:
-          version: '6.9.3'
-          cache: true
-
       - name: Enable MSVC
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: Chatterino/msvc-dev-cmd@v2.0.5
         with:
           arch: x64
+
+      - name: Setup Ninja
+        uses: ninja-build/setup-ninja@v1
 
       - name: Setup sccache
         uses: hendrikmuhs/ccache-action@v1.2
@@ -62,6 +59,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4.3.1
+        with:
+          version: '6.9.3'
+          cache: true
 
       - name: Install Conan
         run: |
